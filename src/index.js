@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import ObservableTimerStore from './ObservableTimerStore'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const timerStore = new ObservableTimerStore()
+
+ReactDOM.render(<App store={timerStore} />, document.getElementById('root'));
 registerServiceWorker();

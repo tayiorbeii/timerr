@@ -8,23 +8,40 @@ class ObservableTimerStore {
   constructor () {
     extendObservable(this, {
       enabled: false,
-      timer: 0,
       breakCount: 0,
-      workPeriod: minToSec(1)
+      workPeriod: minToSec(1),
+      timer: minToSec(1)
     })
+  }
+
+  resetTimer = () => {
+    this.timer = this.workPeriod
   }
 
   toggleTimer = () => {
     this.enabled = !this.enabled 
   }
 
+  disableTimer = () => {
+    this.enabled = false 
+  }
+
   subtractTime = () => {
-    this.timer -= 1
+    if (this.enabled) {
+      this.timer -= 1
+    }
   }
 
   addTime = () => {
     this.timer += 1
   }
+
+  timeCheck = () => autorun(() => {
+    if (this.timer === 0) {
+      this.disableTimer()
+      this.resetTimer()
+    }
+  })
   
 }
 

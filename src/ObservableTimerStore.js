@@ -8,7 +8,9 @@ class ObservableTimerStore {
   constructor () {
     extendObservable(this, {
       enabled: false,
+      hasBeenStarted: false,
       breakCount: 0,
+      direction: 'down',
       workPeriod: minToSec(1),
       timer: minToSec(1)
     })
@@ -16,14 +18,33 @@ class ObservableTimerStore {
 
   resetTimer = () => {
     this.timer = this.workPeriod
+    this.hasBeenStarted = false
+    this.enabled = false
   }
 
   toggleTimer = () => {
-    this.enabled = !this.enabled 
+    if (!this.enabled) {
+      this.enabled = !this.enabled
+      this.hasBeenStarted = true
+    }
+
+    if (this.direction === 'down') {
+      this.direction = 'up'
+    } else if (this.direction === 'up') {
+      this.direction = 'down'
+    }
   }
 
   disableTimer = () => {
     this.enabled = false 
+  }
+
+  decideDirection = () => {
+    if (this.direction === 'down') {
+      this.subtractTime()
+    } else if (this.direction === 'up') {
+      this.addTime()
+    }
   }
 
   subtractTime = () => {

@@ -1,6 +1,4 @@
-import React, { Component } from 'react';
-import { extendObservable, autorun, computed,  observable } from 'mobx'
-import { observer } from 'mobx-react'
+import { extendObservable, autorun } from 'mobx'
 
 const minToSec = (min) => min * 60
 
@@ -18,8 +16,8 @@ class ObservableTimerStore {
 
   resetTimer = () => {
     this.enabled = false
-    this.timer = this.workPeriod
     this.hasBeenStarted = false
+    this.timer = this.workPeriod
   }
 
   toggleTimer = () => {

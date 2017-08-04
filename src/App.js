@@ -5,7 +5,7 @@ import convert from 'convert-seconds'
 
 const Button = ({label, handler}) => {
   return (
-    <a className='pointer ma1 w4 f5 no-underline light-gray bg-animate hover-bg-mid-gray hover-light-gray flex justify-center items-center pa3 ba border-box'
+    <a className='pointer sans-serif ma1 w4 f5 no-underline light-gray bg-animate hover-bg-mid-gray hover-light-gray flex justify-center items-center pa3 ba border-box'
       onClick={handler}
     >
       {label} 
@@ -28,7 +28,7 @@ const App = observer(class App extends Component {
       <div className='flex flex-column items-center content-center vh-100 bg-dark-gray'>
         <ReactInterval {...{timer, enabled}} callback={() => decideDirection()} />
 
-        <div className='mt4 f1 moon-gray'>
+        <div className='mt4 f1 moon-gray sans-serif' style={{fontSize: '6rem'}}>
           {timeDisplay}
         </div>
       

@@ -24,13 +24,14 @@ const App = observer(class App extends Component {
     const { addTime, decideDirection, hasBeenStarted, resetTimer, toggleTimer, timer, enabled, breakCount, direction } = this.props.store
     
     const goLabel = !enabled ? 'Start' : direction === 'down' ? 'Break' : 'Resume' 
-
+    const ct = convert(timer)
+    const timeDisplay = `${ct.minutes}:${ct.seconds.toLocaleString('en-US', {minimumIntegerDigits: 2})}`
     return (
       <div className='flex flex-column items-center content-center vh-100 bg-dark-gray'>
         <ReactInterval {...{timer, enabled}} callback={() => decideDirection()} />
 
         <div className='mt4 f1 moon-gray'>
-          {`${convert(timer).minutes}:${convert(timer).seconds.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})}`}
+          {timeDisplay}
         </div>
       
         <div className='ma4 flex justify-between'>

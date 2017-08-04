@@ -18,6 +18,7 @@ class ObservableTimerStore {
     this.enabled = false
     this.hasBeenStarted = false
     this.timer = this.workPeriod
+    this.direction = 'down'
   }
 
   toggleTimer = () => {
@@ -32,10 +33,6 @@ class ObservableTimerStore {
         this.direction = 'down'
       }
     }
-  }
-
-  disableTimer = () => {
-    this.enabled = false 
   }
 
   decideDirection = () => {
@@ -58,7 +55,6 @@ class ObservableTimerStore {
 
   timeCheck = () => autorun(() => {
     if (this.timer === 0 || this.timer > this.workPeriod) {
-      this.disableTimer()
       this.resetTimer()
     }
   })

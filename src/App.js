@@ -15,7 +15,6 @@ const Button = ({label, handler}) => {
 }
 
 const Input = ({...props}) => {
-  console.log('props', props)
   return (
       <input className='input-reset tc pa2 ba f3 ma1 mid-gray bg-dark-gray db w3' {...props} />
   )
@@ -29,7 +28,7 @@ const App = observer(class App extends Component {
   render () {
     const { decideDirection, setMinutes, resetTimer, toggleTimer, timer, enabled, direction } = this.props.store
     
-    const goLabel = !enabled ? 'Start' : direction === 'down' ? 'Break' : 'Resume' 
+    const goLabel = !enabled ? 'Start' : direction === 'down' ? 'Distracted?' : 'Resume' 
     const ct = convert(timer)
     const timeDisplay = `${ct.minutes}:${ct.seconds.toLocaleString('en-US', {minimumIntegerDigits: 2})}`
     document.title = timeDisplay

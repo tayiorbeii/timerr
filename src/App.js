@@ -7,7 +7,7 @@ import Devtools from 'mobx-react-devtools'
 
 const Button = ({label, handler}) => {
   return (
-    <a className='pointer w3 f5 no-underline light-gray bg-animate hover-bg-mid-gray hover-light-gray flex justify-center items-center pa3 ba border-box mr4'
+    <a className='pointer ma1 w4 f5 no-underline light-gray bg-animate hover-bg-mid-gray hover-light-gray flex justify-center items-center pa3 ba border-box'
       onClick={handler}
     >
       {label} 
@@ -26,17 +26,14 @@ const App = observer(class App extends Component {
     const goLabel = !enabled ? 'Start' : direction === 'down' ? 'Break' : 'Resume' 
 
     return (
-      <div className='flex items-center content-center vh-100 bg-dark-gray'>
+      <div className='flex flex-column items-center content-center vh-100 bg-dark-gray'>
         <ReactInterval {...{timer, enabled}} callback={() => decideDirection()} />
 
         <div className='ma4'>
           {`${convert(timer).minutes}:${convert(timer).seconds.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})}`}
         </div>
       
-        <div className='ma4'>
-          <button onClick={() => toggleTimer()}>
-            {!enabled ? 'Start' : 'Pause'}
-          </button>
+        <div className='ma4 flex justify-between'>
          <Button label={goLabel} handler={() => toggleTimer()} />
          <Button label='Reset' handler={() => resetTimer()} />
         </div>

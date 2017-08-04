@@ -29,7 +29,7 @@ const App = observer(class App extends Component {
       <div className='flex flex-column items-center content-center vh-100 bg-dark-gray'>
         <ReactInterval {...{timer, enabled}} callback={() => decideDirection()} />
 
-        <div className='ma4'>
+        <div className='mt4 f1 moon-gray'>
           {`${convert(timer).minutes}:${convert(timer).seconds.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false})}`}
         </div>
       

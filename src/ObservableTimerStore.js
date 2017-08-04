@@ -17,9 +17,9 @@ class ObservableTimerStore {
   }
 
   resetTimer = () => {
+    this.enabled = false
     this.timer = this.workPeriod
     this.hasBeenStarted = false
-    this.enabled = false
   }
 
   toggleTimer = () => {
@@ -59,12 +59,11 @@ class ObservableTimerStore {
   }
 
   timeCheck = () => autorun(() => {
-    if (this.timer === 0) {
+    if (this.timer === 0 || this.timer > this.workPeriod) {
       this.disableTimer()
       this.resetTimer()
     }
   })
-  
 }
 
 export default ObservableTimerStore

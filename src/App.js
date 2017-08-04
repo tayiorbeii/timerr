@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { autorun, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import ReactInterval from 'react-interval'
 import convert from 'convert-seconds'
-import Devtools from 'mobx-react-devtools'
 
 const Button = ({label, handler}) => {
   return (
@@ -21,7 +19,7 @@ const App = observer(class App extends Component {
   }
 
   render () {
-    const { addTime, decideDirection, hasBeenStarted, resetTimer, toggleTimer, timer, enabled, breakCount, direction } = this.props.store
+    const { decideDirection, resetTimer, toggleTimer, timer, enabled, direction } = this.props.store
     
     const goLabel = !enabled ? 'Start' : direction === 'down' ? 'Break' : 'Resume' 
     const ct = convert(timer)

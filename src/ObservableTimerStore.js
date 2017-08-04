@@ -75,8 +75,8 @@ class ObservableTimerStore {
       this.resetTimer()
     }
 
-    if (this.mode === 'work' && this.timer > this.workPeriod ||
-        this.mode === 'break' && this.timer > this.breakPeriod) {
+    if ((this.mode === 'work' && this.timer > this.workPeriod) ||
+        (this.mode === 'break' && this.timer > this.breakPeriod)) {
       this.resetTimer()
     }
   })

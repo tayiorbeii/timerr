@@ -5,17 +5,28 @@ import ReactInterval from 'react-interval'
 import convert from 'convert-seconds'
 import Devtools from 'mobx-react-devtools'
 
+const Button = ({label, handler}) => {
+  return (
+    <a className='pointer w3 f5 no-underline light-gray bg-animate hover-bg-mid-gray hover-light-gray flex justify-center items-center pa3 ba border-box mr4'
+      onClick={handler}
+    >
+      {label} 
+    </a>
+  )
+}
+
 const App = observer(class App extends Component {
   componentWillMount () {
     this.props.store.timeCheck()
   }
 
   render () {
-    const { addTime, decideDirection, hasBeenStarted, resetTimer, toggleTimer, timer, enabled, breakCount } = this.props.store
-
+    const { addTime, decideDirection, hasBeenStarted, resetTimer, toggleTimer, timer, enabled, breakCount, direction } = this.props.store
+    
+    const goLabel = !enabled ? 'Start' : direction === 'down' ? 'Break' : 'Resume' 
 
     return (
-      <div className='flex items-center content-center vh-100 bg-dark-green'>
+      <div className='flex items-center content-center vh-100 bg-dark-gray'>
         <ReactInterval {...{timer, enabled}} callback={() => decideDirection()} />
 
         <div className='ma4'>
@@ -26,9 +37,8 @@ const App = observer(class App extends Component {
           <button onClick={() => toggleTimer()}>
             {!enabled ? 'Start' : 'Pause'}
           </button>
-         <button onClick={() => resetTimer()}>
-           Reset
-         </button> 
+         <Button label={goLabel} handler={() => toggleTimer()} />
+         <Button label='Reset' handler={() => resetTimer()} />
         </div>
       </div>
     )

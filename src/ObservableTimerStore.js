@@ -24,14 +24,15 @@ class ObservableTimerStore {
 
   toggleTimer = () => {
     if (!this.enabled) {
-      this.enabled = !this.enabled
+      this.enabled = true
       this.hasBeenStarted = true
-    }
-
-    if (this.direction === 'down') {
-      this.direction = 'up'
-    } else if (this.direction === 'up') {
-      this.direction = 'down'
+      this.decideDirection()
+    } else {
+      if (this.direction === 'down') {
+        this.direction = 'up'
+      } else {
+        this.direction = 'down'
+      }
     }
   }
 

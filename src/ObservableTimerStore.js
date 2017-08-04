@@ -11,7 +11,8 @@ class ObservableTimerStore {
       direction: 'down',
       workPeriod: minToSec(25),
       breakPeriod: minToSec(5),
-      timer: minToSec(25)
+      timer: minToSec(25),
+      mode: 'work'
     })
   }
 
@@ -28,7 +29,7 @@ class ObservableTimerStore {
   resetTimer = () => {
     this.enabled = false
     this.hasBeenStarted = false
-    this.timer = this.workPeriod
+    this.timer = this.mode === 'work' ? this.workPeriod : this.breakPeriod
     this.direction = 'down'
   }
 
@@ -64,8 +65,18 @@ class ObservableTimerStore {
     this.timer += 1
   }
 
+  toggleBreak = () => {
+    this.mode === 'work' ? this.mode = 'break' : this.mode = 'work'
+  }
+  
   timeCheck = () => autorun(() => {
-    if (this.timer === 0 || this.timer > this.workPeriod) {
+    if (this.timer === 0) {
+      this.toggleBreak()
+      this.resetTimer()
+    }
+
+    if (this.mode === 'work' && this.timer > this.workPeriod ||
+        this.mode === 'break' && this.timer > this.breakPeriod) {
       this.resetTimer()
     }
   })

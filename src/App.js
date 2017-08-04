@@ -26,7 +26,7 @@ const App = observer(class App extends Component {
   }
 
   render () {
-    const { decideDirection, setMinutes, resetTimer, toggleTimer, timer, enabled, direction } = this.props.store
+    const { decideDirection, setMinutes, setBreakMinutes, resetTimer, toggleTimer, timer, enabled, direction } = this.props.store
     
     const goLabel = !enabled ? 'Start' : direction === 'down' ? 'Distracted?' : 'Resume' 
     const ct = convert(timer)
@@ -50,7 +50,7 @@ const App = observer(class App extends Component {
           <span className='light-gray sans-serif f5 mr1'>Work for </span>
           <Input type='number' min='1' placeholder='25' onChange={(event) => setMinutes(event.target.value)}/>
           <span className='light-gray sans-serif f5 mh1'>minutes, break for </span>
-          <Input type='number' min='1' placeholder='5' onChange={(event) => setMinutes(event.target.value)}/>
+          <Input type='number' min='1' placeholder='5' onChange={(event) => setBreakMinutes(event.target.value)}/>
           <span className='light-gray sans-serif f5 ml1'>minutes.</span>
         </div>
 

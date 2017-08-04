@@ -28,18 +28,20 @@ const App = observer(class App extends Component {
   decFormat = (time) => (time.toLocaleString('en-US', {minimumIntegerDigits: 2}))
 
   render () {
-    const { mode, decideDirection, setMinutes, setBreakMinutes, resetTimer, toggleTimer, timer, enabled, direction } = this.props.store
+    const { mode, completeCount, decideDirection, setMinutes, setBreakMinutes, resetTimer, toggleTimer, timer, enabled, direction } = this.props.store
     
     const goLabel = !enabled ? 'Start' : direction === 'down' ? 'Distracted?' : 'Resume' 
     const ct = convert(timer)
     const timeDisplay = `${ct.hours ? this.decFormat(ct.hours) + ':' : ''}${this.decFormat(ct.minutes)}:${this.decFormat(ct.seconds)}`
     document.title = timeDisplay
 
+    const textStyling = 'gray tracked sans-serif fw2'
+
     return (
       <div className='flex flex-column items-center content-center vh-100 bg-dark-gray'>
         <ReactInterval {...{timer, enabled}} callback={() => decideDirection()} />
 
-        <div className='mt4 mb2 f3 gray sans-serif fw2 tracked'>
+        <div className={`${textStyling} mt4 mb2 f3`}>
           {mode}
         </div>
 
@@ -48,17 +50,30 @@ const App = observer(class App extends Component {
         </div>
       
         <div className='ma4 flex justify-between'>
-         <Button label={goLabel} handler={() => toggleTimer()} />
-         <Button label='Reset' handler={() => resetTimer()} />
+          <div className='mr2'>
+            <Button label={goLabel} handler={() => toggleTimer()} />
+          </div>
+          <div className='ml2'>
+            <Button label='Reset' handler={() => resetTimer()} />
+         </div>
         </div>
 
+        {completeCount > 0 && (
+          <div className={`${textStyling}`}>{completeCount} completed</div>
+        )}
+
         <div className='ma4 w-100 flex justify-center items-center'>
-          <span className='light-gray sans-serif f5 mr1 fw2 tracked'>work for </span>
-          <Input type='number' min='1' placeholder='25' onChange={(event) => setMinutes(event.target.value)}/>
-          <span className='light-gray sans-serif f5 mh1 fw2 tracked'>minutes, break for </span>
-          <Input type='number' min='1' placeholder='5' onChange={(event) => setBreakMinutes(event.target.value)}/>
-          <span className='light-gray sans-serif f5 ml1 fw2 tracked'>minutes.</span>
+          <div className='flex flex-column items-center mr2'>
+            <span className={`${textStyling} mb1`}>work</span>
+            <Input type='number' min='1' placeholder='25' onChange={(event) => setMinutes(event.target.value)}/>
+          </div>
+
+          <div className='flex flex-column items-center ml2'>
+            <span className={`${textStyling} mb1`}>break</span>
+            <Input type='number' min='1' placeholder='5' onChange={(event) => setBreakMinutes(event.target.value)}/>
+          </div>
         </div>
+
 
         {timer < 5 && <Sound url='drum.mp3' playStatus={Sound.status.PLAYING} />}
       </div>

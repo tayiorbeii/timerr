@@ -7,7 +7,7 @@ class ObservableTimerStore {
     extendObservable(this, {
       enabled: false,
       hasBeenStarted: false,
-      breakCount: 0,
+      completeCount: 0,
       direction: 'down',
       workPeriod: minToSec(25),
       breakPeriod: minToSec(5),
@@ -68,9 +68,14 @@ class ObservableTimerStore {
   toggleBreak = () => {
     this.mode === 'work' ? this.mode = 'break' : this.mode = 'work'
   }
+
+  incrementComplete = () => (this.completeCount += 1)
   
   timeCheck = () => autorun(() => {
     if (this.timer === 0) {
+      if (this.mode === 'work') {
+        this.incrementComplete()
+      }
       this.toggleBreak()
       this.resetTimer()
     }

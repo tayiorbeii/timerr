@@ -9,9 +9,14 @@ class ObservableTimerStore {
       hasBeenStarted: false,
       breakCount: 0,
       direction: 'down',
-      workPeriod: minToSec(1),
-      timer: minToSec(1)
+      workPeriod: minToSec(25),
+      timer: minToSec(25)
     })
+  }
+
+  setMinutes = (min) => {
+    this.workPeriod = min ? minToSec(min) : minToSec(25)
+    this.timer = this.workPeriod
   }
 
   resetTimer = () => {
